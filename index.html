@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Flu Fights</title>
+        <button id="test-btn">Locate Me!</button>
     </head>
     <body>
         Hello
@@ -23,7 +24,10 @@
             "<br>Longitude: " + position.coords.longitude; 
         }
 
-        document.onclick = function(){
+        var btn = document.getElementById("test-btn");
+
+
+        btn.onmouseup = function(){
             getLocation();
             showPosition();
         };    
