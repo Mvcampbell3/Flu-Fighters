@@ -7,5 +7,26 @@
     </head>
     <body>
         Hello
+        <h2 id="test"></h2>
+        <script>
+        var x = document.getElementById("test");
+        function getLocation() {
+            if (navigator.geolocation) {
+            return navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude; 
+        }
+
+        document.onclick = function(){
+            getLocation();
+            showPosition();
+        };    
+        </script>    
     </body>
 </html>
