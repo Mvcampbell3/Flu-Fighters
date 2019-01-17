@@ -4,11 +4,120 @@
     <head>
         <meta charset="UTF-8">
         <title>Flu Fights</title>
-        <button id="test-btn">Locate Me!</button>
-    </head>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+        
+    </head><script>
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude; 
+}
+</script> 
     <body>
-        Hello
-        <h2 id="test"></h2>
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+                    <a class="navbar-brand" href="#"><h4>Flu Fights</h4></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html"><h4>Game</h4><span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html"><h4>Contact</h4></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Porfolio.html"><h4>Test</h4></a>
+                            </li>
+            
+            
+                    </div>
+                </nav>
+            
+                
+                <div class="row">
+
+                        <!-- Sign-Up Card-->
+                        <div class="col-lg-6">
+                            <div class="card card-default">
+                                <div class="card-header">
+                                    Test
+                                </div>
+                                <div class="card-body">
+                                    <!-- Sign-up Form (note the various input "types")-->
+                                    <form>
+                                      <div class="form-group">
+                                        <label for="train-name-input">Test</label>
+                                        <input type="text" class="form-control" id="train-name-input">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="destination-input">Test</label>
+                                        <input type="text" class="form-control" id="destination-input">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="first-train-input">Test</label>
+                                        <input type="text" class="form-control" id="first-train-input">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="frequency-input">Test</label>
+                                        <input type="text" class="form-control" id="frequency-input">
+                                      </div>
+                                      <button type="submit" class="btn btn-primary" id="add-train-btn">Submit</button> <br><br>
+                                      <button type="clear" class="btn btn-primary" id="clear-train-btn">Clear Infor</button>
+                         </form>          
+                                </div>
+                            </div>
+                        </div>
+
+                        
+  <!-- Most Recent Member Card -->
+  <div class="col-lg-6">
+        <div class="card card-default" id= "side-card">
+            <div class="card-header">
+                Test
+            </div>
+            <div class="card-body" id="recent-member">
+                
+            </div>
+        </div>
+      </div>
+      
+
+    
+                  
+                
+
+
+                 
+       
+        
+      <div class="container">
+          <div class="row" >
+              <div class="col-lg-12">
+        <div class="card text-center">
+                <div class="card-header">
+                        <button id="test-btn">Locate Me!</button> <br><br>
+                </div>
+                <div class="card-body" ><h2 id="test">This is a Test</h2><br>
+                 
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+        
         <script>
         var x = document.getElementById("test");
         function getLocation() {
@@ -21,7 +130,7 @@
         
         function showPosition(position) {
             x.innerHTML = "Latitude: " + position.coords.latitude + 
-            "<br>Longitude: " + position.coords.longitude; 
+            " Longitude: " + position.coords.longitude; 
         }
 
         var btn = document.getElementById("test-btn");
