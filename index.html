@@ -4,8 +4,33 @@
     <head>
         <meta charset="UTF-8">
         <title>Flu Fights</title>
+        <button id="test-btn">Locate Me!</button>
     </head>
     <body>
         Hello
+        <h2 id="test"></h2>
+        <script>
+        var x = document.getElementById("test");
+        function getLocation() {
+            if (navigator.geolocation) {
+            return navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude; 
+        }
+
+        var btn = document.getElementById("test-btn");
+
+
+        btn.onmouseup = function(){
+            getLocation();
+            showPosition();
+        };    
+        </script>    
     </body>
 </html>
