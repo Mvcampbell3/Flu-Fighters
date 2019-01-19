@@ -1,0 +1,76 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url("../images/background.png") fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#title {
+    margin-top: 20%;
+    background-color: white;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+}
+
+#title h1 {
+    margin: 8px 0;
+    width: 100%;
+    background-color: #ffc14f;
+    border-radius: 15px;
+}
+
+#test-btn {
+    display: none;
+}
+
+.main-content {
+    display: none;
+    position: absolute;
+    padding: 30px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    background-color: white;
+    border-radius: 15px;
+}
+
+label {
+    font-size: 1.5rem;
+}
+
+#verifyPassword-group {
+    display: none;
+}
+
+#verifyPassword::placeholder {
+    color: rgb(168, 168, 168);
+}
+
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+    #title{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    /* For tablets: */
+    #title {
+        margin-top: 15%;
+    }
+}
+
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+    /* For tablets in landscape: */
+    #title {
+        margin-top: 5%;
+    }
+}
+  
+  @media only screen and (min-width: 1025px) {
+    /* For desktop: */
+  }
