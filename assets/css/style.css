@@ -45,7 +45,7 @@ label {
 }
 
 .form-control-lg {
-    height: 25%;
+    height: calc(2.25rem + 2px);
 }
 
 .signUp-group {
