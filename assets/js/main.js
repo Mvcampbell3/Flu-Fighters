@@ -27,39 +27,39 @@ var displayName;
 
 var auth = firebase.auth();
 
-$(".signUpSubBtn").on("click", function (e) {
-    e.preventDefault();
-    // Create user has a password confirmation input
-    if ($("#passwordInput1").val().trim() === $("#passwordInput2").val().trim()) {
-        justSigned = true;
+// $(".signUpSubBtn").on("click", function (e) {
+//     e.preventDefault();
+//     // Create user has a password confirmation input
+//     if ($("#password").val().trim() === $("#verifyPassword").val().trim()) {
+//         justSigned = true;
 
-        displayName = $("#nameInputSign").val().trim();
-        var email = $("#emailInputSign").val().trim();
-        var password = $("#passwordInputSign").val().trim();
+//         displayName = $("#displayName").val().trim();
+//         var email = $("#email").val().trim();
+//         var password = $("#password").val().trim();
 
-        var promise = auth.createUserWithEmailAndPassword(email, password)
+//         var promise = auth.createUserWithEmailAndPassword(email, password)
 
-        promise.catch(function (error) {
-            console.log(error.code + ": " + error.message);
-        })
-    } else {
-        alert("Passwords do not match");
-    }
+//         promise.catch(function (error) {
+//             console.log(error.code + ": " + error.message);
+//         });
+//     } else {
+//         alert("Passwords do not match");
+//     }
 
-});
+// });
 
-$(".loginSubBtn").on("click", function (e) {
-    e.preventDefault();
+// $(".loginSubBtn").on("click", function (e) {
+//     e.preventDefault();
 
-    var email = $("#emailInputLog").val().trim();
-    var password = $("#passwordInputLog").val().trim();
+//     var email = $("#email").val().trim();
+//     var password = $("#password").val().trim();
 
-    var promise = auth.signInWithEmailAndPassword(email, password);
+//     var promise = auth.signInWithEmailAndPassword(email, password);
 
-    promise.catch(function (error) {
-        console.log(error.code + ": " + error.message);
-    })
-})
+//     promise.catch(function (error) {
+//         console.log(error.code + ": " + error.message);
+//     })
+// })
 
 auth.onAuthStateChanged(function (user) {
     if (user && justSigned) {
@@ -100,7 +100,7 @@ var storageRef = firebase.storage().ref("/comparePics");
 
 var fileInput = document.getElementById('file-input');
 
-fileInput.addEventListener('change', (e) => doSomethingWithFiles(e));
+// fileInput.addEventListener('change', (e) => doSomethingWithFiles(e));
 
 
 function doSomethingWithFiles(e) {
