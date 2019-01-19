@@ -24,7 +24,7 @@
                     <form id="login-form">
                         <div class="form-group signUp-group">
                             <label for="displayName">Display Name</label>
-                            <input type="text" class="form-control form-control-lg" id="displayName" placeholder="Username" required>
+                            <input type="text" class="form-control form-control-lg" id="displayName" placeholder="Username">
                         </div>
                         <div class="form-group">
                           <label for="email">Email Address</label>
@@ -103,11 +103,31 @@
             e.preventDefault();
             if ($("#signUp").hasClass("signingUp")) {
                 // Create account submission
+                if ($("#password").val().trim() === $("#verifyPassword").val().trim()) {
+                    justSigned = true;
 
+                displayName = $("#displayName").val().trim();
+                var email = $("#email").val().trim();
+                var password = $("#password").val().trim();
+
+                var promise = auth.createUserWithEmailAndPassword(email, password)
+
+                promise.catch(function (error) {
+                    console.log(error.code + ": " + error.message);
+                });
+                } else {
+                    alert("Passwords do not match");
+                }
             } else {
                 // Login submission
+                var email = $("#email").val().trim();
+                var password = $("#password").val().trim();
 
+                var promise = auth.signInWithEmailAndPassword(email, password);
 
+                promise.catch(function (error) {
+                    console.log(error.code + ": " + error.message);
+                })
             }
         });
 
