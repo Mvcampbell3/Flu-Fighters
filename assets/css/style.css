@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -31,7 +32,7 @@ body {
 .main-content {
     display: none;
     position: absolute;
-    padding: 30px;
+    padding: 15px;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
@@ -41,6 +42,10 @@ body {
 
 label {
     font-size: 1.5rem;
+}
+
+.form-control-lg {
+    height: 25%;
 }
 
 .signUp-group {
