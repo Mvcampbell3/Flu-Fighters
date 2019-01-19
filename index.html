@@ -1,145 +1,116 @@
+
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Flu Fights</title>
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My TrainTimes</title>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- link boot trap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+
+     <!-- link firebase -->
+     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+
+    <!-- Moment.js Reference -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
+    <!-- <script src="Train.js"></script> -->
+</head>
+
+
+<body>
+   <!-- create Div for headeing -->
+
+   <div id="title" class="col-12"></div>
+   <div class="container">
         
-    </head><script>
-var x = document.getElementById("demo");
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude; 
-}
-</script> 
-    <body>
-            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-                    <a class="navbar-brand" href="#"><h4>Flu Fights</h4></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-            
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="index.html"><h4>Game</h4><span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact.html"><h4>Contact</h4></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Porfolio.html"><h4>Test</h4></a>
-                            </li>
-            
-            
-                    </div>
-                </nav>
-            
-                
-                <div class="row">
+               
+        
+         <!-- Jumbotron -->
+        <div class="jumbotron">
+            <h1 class="text-center"> Excited Findind Game !!</h1>
+        </div>
 
-                        <!-- Sign-Up Card-->
-                        <div class="col-lg-6">
-                            <div class="card card-default">
-                                <div class="card-header">
-                                    Test
-                                </div>
-                                <div class="card-body">
-                                    <!-- Sign-up Form (note the various input "types")-->
-                                    <form>
-                                      <div class="form-group">
-                                        <label for="train-name-input">Test</label>
-                                        <input type="text" class="form-control" id="train-name-input">
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="destination-input">Test</label>
-                                        <input type="text" class="form-control" id="destination-input">
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="first-train-input">Test</label>
-                                        <input type="text" class="form-control" id="first-train-input">
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="frequency-input">Test</label>
-                                        <input type="text" class="form-control" id="frequency-input">
-                                      </div>
-                                      <button type="submit" class="btn btn-primary" id="add-train-btn">Submit</button> <br><br>
-                                      <button type="clear" class="btn btn-primary" id="clear-train-btn">Clear Infor</button>
-                         </form>          
-                                </div>
-                            </div>
-                        </div>
+
+    <div class="row">
+
+        <!-- Train - Card-->
+        <div class="col-lg-12">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4></h4>
+                </div>
+
+               
+                <div class="card-body">
+                    <!-- Sign-up Form (Info various input "types")-->
+                    <form>
+                        <!-- form for Train Name -->
 
                         
-  <!-- Most Recent Member Card -->
-  <div class="col-lg-6">
-        <div class="card card-default" id= "side-card">
-            <div class="card-header">
-                Test
-            </div>
-            <div class="card-body" id="recent-member">
-                
+                      <div class="form-group">
+                          <div class ="test"></div>
+                          
+                        <label for="game1"><h5>Game 1</h5></label>
+                        <input type="text" class="form-control" id="game1">
+                      </div>
+                        <!--  form for Destination -->
+                      <div class="form-group">
+                        <label for="game2"><h5>Game 2</h5></label>
+                        <input type="text" class="form-control" id="game2">
+                      </div>
+                        <!--  form for First Train input time -->
+                      <div class="form-group">
+                        <label for="game3"><h5>Game 3</h5></label>
+                        <input type="text" class="form-control" id="game3">
+                      </div>
+                      <!-- form for Frequency Train -->
+                      <div class="form-group">
+                        <label for="game4"><h5>Game 4</h5></label>
+                        <input type="text" class="form-control" id="game4">
+                      </div>
+
+                      <!-- form for Frequency Train -->
+                      <div class="form-group">
+                            <label for="game5"><h5>Game 5</h5></label>
+                            <input type="text" class="form-control" id="game5">
+                          </div>
+                      <!-- Submit Output button  -->
+
+                      <div class="card text-center">
+                      <button type="submit" class="btn btn-primary" id="add-train-btn"><h4>create</h4></button>
+                      <button type="submit" class="btn btn-primary" id="add-train-btn"><h4>Join the Games</h4></button>  
+                      
+                      </div>
+
+                    </div>
+         </form> 
+         
+        </div>
+                </div>
             </div>
         </div>
-      </div>
-      
-
-    
-                  
-                
-
-
-                 
-       
-        
-      <div class="container">
-          <div class="row" >
-              <div class="col-lg-12">
-        <div class="card text-center">
-                <div class="card-header">
-                        <button id="test-btn">Locate Me!</button> <br><br>
-                </div>
-                <div class="card-body" ><h2 id="test">This is a Test</h2><br>
-                 
-                </div>
-              </div>
-            </div>
+  
+  
+  
+  <!-- create New Row Output from JS file -->
+ 
         </div>
     </div>
-        
-        <script>
-        var x = document.getElementById("test");
-        function getLocation() {
-            if (navigator.geolocation) {
-            return navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        
-        function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude + 
-            " Longitude: " + position.coords.longitude; 
-        }
-
-        var btn = document.getElementById("test-btn");
+  </div>
+  
+  
+    <!-- Link to JS File -->
+    <script src="./assets/javascript/Fight-flu.js"></script>
 
 
-        btn.onmouseup = function(){
-            getLocation();
-            showPosition();
-        };    
-        </script>    
-    </body>
+</body>
+
 </html>
