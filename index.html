@@ -54,16 +54,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.deepai.org/deepai.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
-
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
             crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+        <script src="https://cdnjs.deepai.org/deepai.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
-
         <!-- Add additional services that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>
@@ -84,7 +79,7 @@
                 btn.removeClass("signingUp");
                 $("#title").fadeIn();
                 $(".signUp-group").slideUp();
-                $("#verifyPassword").removeAttr("required");
+                $("#verifyPassword, #displayName").removeAttr("required");
                 $("#form-buttons").animate({"opacity":0.3}, 200, function() {
                     $("#form-buttons button").text("Login");
                     $("#form-buttons a").text(signUpMessage);
@@ -94,7 +89,7 @@
                 btn.addClass("signingUp");
                 $("#title").fadeOut();
                 $(".signUp-group").slideDown();
-                $("#verifyPassword").attr("required",true);
+                $("#verifyPassword, #displayName").attr("required",true);
                 $("#form-buttons").animate({"opacity":0.3}, 200, function() {
                     $("#form-buttons button").text("Create Account");
                     $("#form-buttons a").text(signInMessage);
