@@ -29,7 +29,7 @@ body {
     display: none;
 }
 
-.main-content {
+#main-content {
     display: none;
     position: absolute;
     padding: 15px;

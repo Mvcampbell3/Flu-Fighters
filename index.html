@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="container main-content">
+        <div id="main-content" class="container">
             <div class="row">
                 <div class="col-12">
                     <form id="login-form">
@@ -70,7 +70,7 @@
         const signInMessage = `Already have an account? Sign in here.`;
         const signUpMessage = `Don't have an account? Create one here.`;
 
-        $(".main-content").slideDown();
+        $("#main-content").slideDown();
         
 
         $("#signUp").on("click", function() {
@@ -89,7 +89,8 @@
                 btn.addClass("signingUp");
                 $(".signUp-group").slideDown({
                     step: function(){
-                        if ($(".main-content").offset().top <= $("#title").offset().top+$("#title").height()) {
+                        // If main-content touches title then hide the title
+                        if ($("#main-content").offset().top <= ($("#title").offset().top+$("#title").height()) && $("#title").css("opacity") == 1) {
                             $("#title").fadeOut();
                         };   
                     },
