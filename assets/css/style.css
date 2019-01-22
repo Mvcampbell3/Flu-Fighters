@@ -1,82 +1,3 @@
-<<<<<<< HEAD
-/* background body */
-body { 
-    background-image: url(../images/h3.jpg);
-    background-position: center center;
-    background-repeat:  no-repeat;
-    background-attachment: fixed;
-    background-size:  cover;
-     background-color: rgb(245, 221, 87); 
-    height: auto;
-}
-
-
-.form-group{
-    text-align: center;
-    
-}
-
-
-h5{
-    text-align: center;
-    color:blue;
-}
-.nav-link{
-    color: gold;
-}
-h4{
-    color: gold;
-}
-#side-card{
-    height: 100%;
-}
-
-
-@media only screen and (max-width: 767px) and (orientation: landscape) {
-
-    #title{
-
-        display: none;
-
-    }
-
-}
-
-
-
-@media only screen and (min-width: 768px) {
-
-    /* For tablets: */
-
-    #title {
-
-        margin-top: 15%;
-
-    }
-
-}
-
-
-
-@media only screen and (min-width: 768px) and (orientation: landscape) {
-
-    /* For tablets in landscape: */
-
-    #title {
-
-        margin-top: 5%;
-
-    }
-
-}
-
-  
-
-  @media only screen and (min-width: 1025px) {
-
-    /* For desktop: */
-
-=======
 html, body {
     height: 100%;
     width: 100%;
@@ -111,7 +32,7 @@ body {
 #main-content {
     display: none;
     position: absolute;
-    padding: 15px;
+    padding: 15px 30px 20px 30px;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
@@ -129,6 +50,15 @@ label {
 
 .signUp-group {
     display: none;
+}
+
+#signUp {
+    vertical-align: bottom;
+    margin-left: 10px;
+}
+
+#form-buttons button {
+    min-width: 90px;
 }
 
 #verifyPassword::placeholder {
@@ -157,5 +87,4 @@ label {
   
   @media only screen and (min-width: 1025px) {
     /* For desktop: */
->>>>>>> 9b85231a70e90587c28153f43e4b270d7dbeb3f4
   }
