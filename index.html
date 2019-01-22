@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="container main-content">
+        <div id="main-content" class="container">
             <div class="row">
                 <div class="col-12">
                     <form id="login-form">
@@ -40,7 +40,7 @@
                             <input type="password" class="form-control form-control-lg" id="verifyPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
                         </div>
                         <div id="form-buttons">
-                        <button type="submit" class="btn btn-lg btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                         <br><a id="signUp" href="#">Don't have an account? Create one here.</a>
                         </div>
                     </form>
@@ -70,7 +70,7 @@
         const signInMessage = `Already have an account? Sign in here.`;
         const signUpMessage = `Don't have an account? Create one here.`;
 
-        $(".main-content").slideDown();
+        $("#main-content").slideDown();
         
 
         $("#signUp").on("click", function() {
@@ -87,8 +87,14 @@
                 });
             } else {
                 btn.addClass("signingUp");
-                $("#title").fadeOut();
-                $(".signUp-group").slideDown();
+                $(".signUp-group").slideDown({
+                    step: function(){
+                        // If main-content touches title then hide the title
+                        if ($("#main-content").offset().top <= ($("#title").offset().top+$("#title").height()) && $("#title").css("opacity") == 1) {
+                            $("#title").fadeOut();
+                        };   
+                    },
+                });
                 $("#verifyPassword, #displayName").attr("required",true);
                 $("#form-buttons").animate({"opacity":0.3}, 200, function() {
                     $("#form-buttons button").text("Create Account");
