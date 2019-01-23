@@ -1,0 +1,77 @@
+
+/* background body */
+body { 
+    background-image: url(../images/h3.jpg);
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+     background-color: rgb(245, 221, 87); 
+    height: auto;
+}
+
+
+.form-group{
+    text-align: center;
+    
+}
+
+
+h5{
+    text-align: center;
+    color:blue;
+}
+.nav-link{
+    color: gold;
+}
+h4{
+    color: gold;
+}
+#side-card{
+    height: 100%;
+}
+
+
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+
+    #title{
+
+        display: none;
+
+    }
+
+}
+
+
+
+@media only screen and (min-width: 768px) {
+
+    /* For tablets: */
+
+    #title {
+
+        margin-top: 15%;
+
+    }
+
+}
+
+
+
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+
+    /* For tablets in landscape: */
+
+    #title {
+
+        margin-top: 5%;
+
+    }
+
+}
+
+  
+
+  @media only screen and (min-width: 1025px) {
+
+    /* For desktop: */
