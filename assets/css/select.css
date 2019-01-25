@@ -5,65 +5,35 @@ html, body {
 }
 
 body {
+    /* background-image: url(../images/download1.jpg); */
     background: url("../images/background.png") fixed;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-#title {
-    margin-top: 20%;
-    background-color: white;
-    border-radius: 15px;
-    color: white;
-    text-align: center;
-}
-
 #title h1 {
+    line-height: unset;
     margin: 8px 0;
+    height: 70px;
     width: 100%;
     background-color: #ffc14f;
     border-radius: 15px;
+    text-align: center;
+    color : white;
 }
 
-#test-btn {
-    display: none;
-}
-
-#main-content {
-    display: none;
-    position: absolute;
-    padding: 15px 30px 20px 30px;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    background-color: white;
+#select1, #select2{
+    height: 150px;
+    width: 30%;
+    text-align: center;
+    background-color: #ffc14f;
     border-radius: 15px;
+    margin-left: 30%;
+    margin-top: 30px;
+    border-color: gold;
 }
 
-label {
-    font-size: 1.5rem;
-}
 
-.form-control-lg {
-    height: calc(2.25rem + 2px);
-}
-
-.signUp-group {
-    display: none;
-}
-
-#signUp {
-    vertical-align: bottom;
-    margin-left: 10px;
-}
-
-#form-buttons button {
-    min-width: 90px;
-}
-
-#verifyPassword::placeholder {
-    color: rgb(168, 168, 168);
-}
 
 @media only screen and (max-width: 767px) and (orientation: landscape) {
     #title{
