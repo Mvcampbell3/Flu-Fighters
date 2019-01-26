@@ -50,6 +50,7 @@ var authentication = {
 
 
 
+
     hello: firebase.auth().onAuthStateChanged(function (user) {
         if (user && authentication.justSigned) {
             // User is signed in and just created account
@@ -69,10 +70,11 @@ var authentication = {
         } else {
             console.log("not logged in");
             // Not signed in
+            $(".loginArea").slideDown();
         }
     }),
 
-    goodbye: firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+    goodbye: firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(function () {
             var provider = new firebase.auth.GoogleAuthProvider();
             // In memory persistence will be applied to the signed in Google user
@@ -137,6 +139,7 @@ var game = {
 
     // Loads the 5 urls from correctPics to clarifai cloud
     // Not in use due to clarifai only storing the same url once
+    // Will user when making the games
     addToClarifai: function () {
 
         if (game.correctPics.length === 5) {
@@ -191,35 +194,44 @@ var game = {
         );
     },
 
-    // Only dumps file that have that id, may modify into array
-    deleteClarifaiExact: function () {
-        var id_1 = userRoom.roomKey + ("pic1");
-        var id_2 = userRoom.roomKey + ("pic2");
-        var id_3 = userRoom.roomKey + ("pic3");
-        var id_4 = userRoom.roomKey + ("pic4");
-        var id_5 = userRoom.roomKey + ("pic5");
-
-        app.inputs.delete([{ id_1 }, { id_2 }, { id_3 }, { id_4 }, { id_5 }]).then(
-            function (response) {
-                console.log(response);
-            },
-            function (err) {
-                console.log(err);
-            }
-        );
-    },
-
-    checkURL: function (URL) {
+    checkURL: function (URL, i) {
         // Basic component of the game, get the values back
-        // can also be targeted if cloud storage is too big
         app.inputs.search({ input: { url: URL } }).then(
             function (response) {
-                // do something with response
-                // response will contain the values of the url vs urls in clarifai cloud
+
+                // What this is going to do is grab the user pic and correct pic and send them to the html
+                // Run the comparison of the url for user pic against all pics in clarifai database
+                // Find the score of the url of the correct pic for that input
+                // Post that score to the html
+
+                // You can maybe add them up for an overall score or something
+                // Will be in form of 89 meaning 89% similairty between pics
+
+                // The Html endpoints are the same names with 0, 1, 2, 3, or 4 seperating them from eachother
+                // uses iterator from the runCompare() for loop as the number for each check
+                // This is because they come back in different order than put in
+
+
+                console.log("-------------------------------------------")
                 console.log(response);
-                // This is where we will do somthing with the response in terms of right or wrong
-                // Send it to the correct place on the HTML
-                // Will add component to check if url is in the game url list
+                console.log("This was the url used " + URL);
+                console.log(i + " was the iterator from run compare");
+                $("#imgGuess" + i).attr("src", game.userPics[i]);
+                $("#imgRight" + i).attr("src", game.correctPics[i])
+                var rightPic = game.correctPics[i];
+                console.log(game.correctPics[i]);
+                console.log(game.userPics[i]);
+                var getRight = [];
+                for (var j = 0; j < response.hits.length; j++) {
+                    getRight.push(response.hits[j].input.data.image.url);
+                }
+                console.log(getRight.indexOf(rightPic) + " is the index of the rightpic in the hits array");
+                var rightPicIndex = getRight.indexOf(rightPic);
+                var score = response.hits[rightPicIndex].score
+                score = (score.toFixed(2)) * 100
+
+                $("#value" + i).text(score);
+                console.log("--------------------------------------------")
             },
             function (err) {
                 // there was an error
@@ -229,6 +241,8 @@ var game = {
     },
 
     runCompare: function () {
+        // When this gets through the response, will delete all of the userRoom information
+        // Can keep this way or can move to the event when result page closed
         var update = {
             closed: true,
         };
@@ -236,7 +250,7 @@ var game = {
         saveClose.update(update);
 
         for (var i = 0; i < game.userPics.length; i++) {
-            game.checkURL(game.userPics[i]);
+            game.checkURL(game.userPics[i], i);
         }
         $(".gameRoom").fadeOut();
         setTimeout(function () {
@@ -249,7 +263,7 @@ var game = {
             firebase.storage().ref('userPics/' + userRoom.roomKey + "/pic3URL").delete();
             firebase.storage().ref('userPics/' + userRoom.roomKey + "/pic4URL").delete();
             firebase.storage().ref('userPics/' + userRoom.roomKey + "/pic5URL").delete();
-            $(".roomArea").show();
+            $(".resultArea").show();
         }, 5000);
     },
 
@@ -257,9 +271,6 @@ var game = {
 }; //End of Game Object
 
 // ---------------File Input ---------------//
-
-// Need to clean this up, add to the game object or make new object
-
 
 var fileInputArea = document.getElementById("gameRoom");
 
@@ -395,12 +406,15 @@ function setUpRelay() {
     var real = firebase.database().ref("/gameStorage/userRooms/" + userRoom.roomKey).on("value", function (snapshot) {
         console.log("loading picture urls")
         if (snapshot.val().closed === false) {
+            // this will change when the files are sumbitted to runCompare();
             $("#img1").attr("src", snapshot.val().pic1URL);
             $("#img2").attr("src", snapshot.val().pic2URL);
             $("#img3").attr("src", snapshot.val().pic3URL);
             $("#img4").attr("src", snapshot.val().pic4URL);
             $("#img5").attr("src", snapshot.val().pic5URL);
         } else {
+            // Kicks people out of the room
+            // This is where the page loads different parts of the html
             $(".gameRoom").hide();
             $(".roomArea").show();
         }
@@ -437,9 +451,6 @@ var userRoom = {
     },
 
     roomDatabaseInit: function () {
-        // Need to push room to userRooms database
-        // Save Room ID;
-        // Data-room 
         var roomDatabase = firebase.database().ref("/gameStorage/userRooms/")
         var roomNew = roomDatabase.push();
 
@@ -487,13 +498,16 @@ var userRoom = {
     sendRoomstoPage: firebase.database().ref("/gameStorage/userRooms").on("value", function (snap) {
         $(".outputArea").html("");
         snap.forEach(function (childSnap) {
+
             var childKey = childSnap.key;
             var childData = childSnap.val();
             var newDiv = $("<div>").attr("class", "box").attr("data-roomKey", childKey);
-            var title = $("<h2>").attr("class", "divTitle").text(childData.roomName);
-            var userNum = $("<h2>").attr("class", "userNum").text(childData.users.length);
+            var title = $("<h2>").attr("class", "divTitle").text(childData.roomName.toUpperCase());
 
-            newDiv.append(title, userNum);
+            // var userNum = $("<h2>").attr("class", "userNum").text(childData.users.length);
+            // Not keeping track of users 
+            // newDiv.append(title, userNum);
+            newDiv.append(title);
             $(".outputArea").prepend(newDiv);
         })
     }),
@@ -565,53 +579,53 @@ $(".selectRoom").on("click", function () {
 
 
 // Only for loading our games to the databases
+// Need to manually load pics to firebase storage to get urls
 
 function setTestGame() {
-    var database = firebase.database().ref("/gameStorage/games/testGame1");
+    var database = firebase.database().ref("/gameStorage/games/testGame2");
     // set to game name
 
 
     database.set([
         {
             picURL: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FnotGuessed.jpg?alt=media&token=39e3d7d3-dce7-422b-9de7-a5a9d48a2404",
-            picHint: "Birthday Sign",
-            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161536997.jpg?alt=media&token=96cecc86-de0e-4169-bf11-c68d8d39045f"
+            picHint: "HardWired",
+            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200617772.jpg?alt=media&token=0db2a77f-5ae0-40ae-9d49-ec655d128277"
         },
         {
             picURL: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FnotGuessed.jpg?alt=media&token=39e3d7d3-dce7-422b-9de7-a5a9d48a2404",
-            picHint: "Home Sign",
-            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161547509.jpg?alt=media&token=36d5318a-89d1-4578-821f-06038cc2b5e1"
+            picHint: "GOTG",
+            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200630286.jpg?alt=media&token=d1f911f6-322d-4e7a-b4d8-e2a247be9fff"
         },
         {
             picURL: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FnotGuessed.jpg?alt=media&token=39e3d7d3-dce7-422b-9de7-a5a9d48a2404",
-            picHint: "Air Fryer",
-            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161616979.jpg?alt=media&token=f0479709-6b91-4c24-9106-1d36909626f9",
+            picHint: "BluesBros",
+            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200641315.jpg?alt=media&token=b579e601-94ca-4e93-b4d0-ed72c993da76",
         },
         {
             picURL: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FnotGuessed.jpg?alt=media&token=39e3d7d3-dce7-422b-9de7-a5a9d48a2404",
-            picHint: "Instant Pot",
-            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161630353.jpg?alt=media&token=3c1a5b30-c30d-4ae3-b5dc-5c72555fbf93"
+            picHint: "NR&TNS",
+            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200705502.jpg?alt=media&token=13ebccaf-6a56-4975-a027-7d3e9387366f"
         },
         {
             picURL: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FnotGuessed.jpg?alt=media&token=39e3d7d3-dce7-422b-9de7-a5a9d48a2404",
-            picHint: "Lightning Mcqueen",
-            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161641626.jpg?alt=media&token=30e3a751-ac55-4a3e-87aa-02fbd1f3e5d3"
+            picHint: "CCR",
+            picRight: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200720504.jpg?alt=media&token=651337b4-af22-4771-b7bf-8b7a32322c69"
         }
 
     ]);
 
     app.inputs.create([
-        // pretty certain can run for loop with right keys
-        // may want to ad id's to the mix or metadata
-        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161536997.jpg?alt=media&token=96cecc86-de0e-4169-bf11-c68d8d39045f" },
-        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161547509.jpg?alt=media&token=36d5318a-89d1-4578-821f-06038cc2b5e1" },
-        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161616979.jpg?alt=media&token=f0479709-6b91-4c24-9106-1d36909626f9" },
-        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161630353.jpg?alt=media&token=3c1a5b30-c30d-4ae3-b5dc-5c72555fbf93" },
-        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame%2FIMG_20190120_161641626.jpg?alt=media&token=30e3a751-ac55-4a3e-87aa-02fbd1f3e5d3" },
+        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200617772.jpg?alt=media&token=0db2a77f-5ae0-40ae-9d49-ec655d128277" },
+        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200630286.jpg?alt=media&token=d1f911f6-322d-4e7a-b4d8-e2a247be9fff" },
+        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200641315.jpg?alt=media&token=b579e601-94ca-4e93-b4d0-ed72c993da76" },
+        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200705502.jpg?alt=media&token=13ebccaf-6a56-4975-a027-7d3e9387366f" },
+        { url: "https://firebasestorage.googleapis.com/v0/b/flu-fighters.appspot.com/o/gamePics%2FtestGame2%2FIMG_20190125_200720504.jpg?alt=media&token=651337b4-af22-4771-b7bf-8b7a32322c69" },
     ]).then(
         function (response) {
             // do something with response
             console.log(response);
+            console.log("loading was successful");
         },
         function (err) {
             // there was an error
@@ -621,3 +635,4 @@ function setTestGame() {
 
 
 }
+
