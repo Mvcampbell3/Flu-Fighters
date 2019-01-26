@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 400px;
+            display: flex;
+            height: 60px;
+            border: 1px black solid;
+            justify-content: space-evenly;
+            margin-bottom: 3px;
+            cursor: pointer;
+        }
+
+        .gameRoom{
+            display: none;
+        }
+
+        .btn{
+            width: 175px;
+            text-align: center;
+            padding: 5px 0;
+            font-size: 20px;
+            border: 1px black solid;
+            box-shadow: 3px 3px 5px black;
+            outline: none;
+        }
+        .btn:focus{
+            background-color: red;
+        }
+
+        input[type=text]{
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .createRoomArea{
+            margin: 10px 0;
+            display: none;
+        }
+
+        .makeRoom{
+            margin: 8px 0;
+        }
+
+        /* .loginArea{
+            display: none;
+        } */
+
+        .roomArea{
+            display: none;
+        }
+
+        .roomArea{
+            display: none;
+        }
+
+        .gameRoom img{
+            width: 300px;
+            height: auto;
+        }
+
+        .logBtn{
+            margin-top: 10px;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <div class="loginArea">
+        <form action="">
+            <label for="name">Name</label><br>
+            <input type="text" name="name" id="nameInputSign"><br>
+            <label for="email">Email Address</label><br>
+            <input type="text" name="email" id="emailInputSign"><br>
+            <label for="password">Password</label><br>
+            <input type="password" name="password" id="passwordInputSign"><br>
+            <button class="btn logBtn signUpSubBtn">Submit Sign Up</button>
+        </form>
+
+        <br>
+        <hr>
+        <br>
+
+        <form action="">
+            <label for="email">Email Address</label><br>
+            <input type="text" name="email" id="emailInputLog"><br>
+            <label for="password">Password</label><br>
+            <input type="password" name="password" id="passwordInputLog"><br>
+            <button class="btn logBtn loginSubBtn">Submit Login</button>
+        </form>
+    </div>
+
+
+    <div id ="gameRoom" class="gameRoom">
+        <h2 class="roomTitle">Room Name</h2>
+        <h3 class="hint" id="hint1"></h3>
+        <input type="file" accept="image/*" id="file-input1" data-pic="pic1URL" data-full="input_1_full"><br>
+        <img src="" alt="" id="img1">
+        <h3 class="hint" id="hint2"></h3>
+        <input type="file" accept="image/*" id="file-input2" data-pic="pic2URL" data-full="input_2_full"><br>
+        <img src="" alt="" id="img2">
+        <h3 class="hint" id="hint3"></h3>
+        <input type="file" accept="image/*" id="file-input3" data-pic="pic3URL" data-full="input_3_full"><br>
+        <img src="" alt="" id="img3">
+        <h3 class="hint" id="hint4"></h3>
+        <input type="file" accept="image/*" id="file-input4" data-pic="pic4URL" data-full="input_4_full"><br>
+        <img src="" alt="" id="img4">
+        <h3 class="hint" id="hint5"></h3>
+        <input type="file" accept="image/*" id="file-input5" data-pic="pic5URL" data-full="input_5_full"><br>
+        <img src="" alt="" id="img5"><br>
+        <button class="btn subBtn">Submit Answers</button>
+
+    </div>
+    <div class="roomArea">
+        <div class="outputArea"></div>
+        <div class="buttonArea">
+            <div class="createRoom btn">Create</div>
+        </div>
+    </div>
+    
+    <div class="createRoomArea">
+        <label for="roomName">Room Name:</label><br>
+        <input type="text" name="roomName" id="roomName"><br>
+        <button class="btn selectRoom testGame1" data-game="testGame1">TestGame1</button>
+    </div>
+
+
+    <!-- Start of Script area -->
+    <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-storage.js"></script>
+
+
+    <script src="testApi.js"></script>
+    <script>
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,3 +1,17 @@
+const gradients = ["Purple Bliss","Mantle","Witching Hour","Nighthawk","Amethyst","Sylvia","Kashmir","Aubergine","Mello","Dark Ocean","Deep Sea Space","Kye Meh","SoundCloud","Tranquil"];
+var colorUrl = "https://uigradients.com/gradients.json";
+var colorArray = [];
+$.ajax({
+    method: "GET",
+    url: colorUrl,
+    }).then(function(response) {
+        response.forEach(function(color) {
+            if (gradients.indexOf(color.name) > -1) {
+                colorArray.push(color);
+            };
+        });
+    });
+
 var config = {
     apiKey: "AIzaSyCyTlLrY30Yw_3eqKWmj4ejqmAAYL_X1-Y",
     authDomain: "flu-fighters.firebaseapp.com",
@@ -19,9 +33,9 @@ var authentication = {
         e.preventDefault();
         authentication.justSigned = true;
 
-        authentication.displayName = $("#nameInputSign").val().trim();
-        var email = $("#emailInputSign").val().trim();
-        var password = $("#passwordInputSign").val().trim();
+        authentication.displayName = $("#displayName").val().trim();
+        var email = $("#email").val().trim();
+        var password = $("#password").val().trim();
 
         var promise = firebase.auth().createUserWithEmailAndPassword(email, password)
 
@@ -33,8 +47,8 @@ var authentication = {
     login: function (e) {
         e.preventDefault();
 
-        var email = $("#emailInputLog").val().trim();
-        var password = $("#passwordInputLog").val().trim();
+        var email = $("#email").val().trim();
+        var password = $("#password").val().trim();
 
         var promise = firebase.auth().signInWithEmailAndPassword(email, password);
 
@@ -44,8 +58,8 @@ var authentication = {
     },
 
     moveToRooms: function () {
-        $(".loginArea").slideUp();
-        $(".roomArea").slideDown();
+        $("#main-content").slideUp();
+        $("#room-container").slideDown();
     },
 
 
@@ -70,7 +84,7 @@ var authentication = {
         } else {
             console.log("not logged in");
             // Not signed in
-            $(".loginArea").slideDown();
+            $("#main-content").slideDown();
         }
     }),
 
@@ -216,8 +230,8 @@ var game = {
                 console.log(response);
                 console.log("This was the url used " + URL);
                 console.log(i + " was the iterator from run compare");
-                $("#imgGuess" + i).attr("src", game.userPics[i]);
-                $("#imgRight" + i).attr("src", game.correctPics[i])
+                $("#item" + i).find(".imgGuess").attr("src", game.userPics[i]);
+                $("#item" + i).find(".imgRight").attr("src", game.correctPics[i])
                 var rightPic = game.correctPics[i];
                 console.log(game.correctPics[i]);
                 console.log(game.userPics[i]);
@@ -230,7 +244,24 @@ var game = {
                 var score = response.hits[rightPicIndex].score
                 score = (score.toFixed(2)) * 100
 
-                $("#value" + i).text(score);
+                var num = 0;
+                var target = $("#item" + i);
+                target.attr("data-score",score);
+                // var stars = target.find(".stars");
+                // var percentage = target.find(".percentage");
+                // var starAnim = setInterval(function() {
+                //     var rect = 20+(num*0.85) + "px";
+                //     stars.css("clip","rect(0, " + rect + ", 125px, 0)");
+                //     percentage.text(Math.floor(num)+"%");
+                //     percentage.css("color",getColor(num/100));
+                //     if (num >= score) {
+                //         clearInterval(starAnim);
+                //     }
+                //     num += 0.25;
+                // },5);
+
+                //It takes the score and it loops num until it reaches the score.
+                // $("#item" + i).find(".percentage").text(score);
                 console.log("--------------------------------------------")
             },
             function (err) {
@@ -252,7 +283,8 @@ var game = {
         for (var i = 0; i < game.userPics.length; i++) {
             game.checkURL(game.userPics[i], i);
         }
-        $(".gameRoom").fadeOut();
+        // $(".gameRoom").fadeOut();
+        $("#gameRoom").css("display","none");
         setTimeout(function () {
 
             firebase.database().ref("/gameStorage/userRooms/" + userRoom.roomKey).off();
@@ -263,7 +295,7 @@ var game = {
             firebase.storage().ref('userPics/' + userRoom.roomKey + "/pic3URL").delete();
             firebase.storage().ref('userPics/' + userRoom.roomKey + "/pic4URL").delete();
             firebase.storage().ref('userPics/' + userRoom.roomKey + "/pic5URL").delete();
-            $(".resultArea").show();
+            $("#results-screen").show();
         }, 5000);
     },
 
@@ -416,7 +448,7 @@ function setUpRelay() {
             // Kicks people out of the room
             // This is where the page loads different parts of the html
             $(".gameRoom").hide();
-            $(".roomArea").show();
+            $("#room-container").hide();
         }
 
     })
@@ -496,30 +528,39 @@ var userRoom = {
     },
 
     sendRoomstoPage: firebase.database().ref("/gameStorage/userRooms").on("value", function (snap) {
-        $(".outputArea").html("");
+        $("#room-screen").html("");
         snap.forEach(function (childSnap) {
 
             var childKey = childSnap.key;
             var childData = childSnap.val();
-            var newDiv = $("<div>").attr("class", "box").attr("data-roomKey", childKey);
+            var newDiv = $("<div>").attr("class", "box room").attr("data-roomKey", childKey);
             var title = $("<h2>").attr("class", "divTitle").text(childData.roomName.toUpperCase());
 
+            const randomGrad = colorArray[Math.floor(Math.random()*10)]
+            let gradString = "to bottom right, " //`${Math.floor(Math.random()*360)}deg, `
+            for (let num = 0; num < randomGrad.colors.length; num++) {
+                gradString += randomGrad.colors[num];
+                if (num < randomGrad.colors.length-1) {
+                    gradString += ",";
+                };
+            };
+            newDiv.css("background-image",`linear-gradient(${gradString})`);
             // var userNum = $("<h2>").attr("class", "userNum").text(childData.users.length);
             // Not keeping track of users 
             // newDiv.append(title, userNum);
             newDiv.append(title);
-            $(".outputArea").prepend(newDiv);
+            $("#room-screen").prepend(newDiv);
         })
     }),
 
     openRoom: function () {
-        $(".roomArea").slideUp();
+        $("#room-container").slideUp();
         var gameDatabase = firebase.database().ref("/gameStorage/userRooms/" + $(this).attr("data-roomKey"));
         userRoom.roomKey = $(this).attr("data-roomKey");
 
         gameDatabase.on("value", function (snap) {
             var here = snap.val();
-            $(".roomTitle").text(here.roomName);
+            $("#title").text(here.roomName);
             $("#hint1").text(here.hint1);
             $("#hint2").text(here.hint2);
             $("#hint3").text(here.hint3);
@@ -534,7 +575,7 @@ var userRoom = {
         var gameDatabase = firebase.database().ref("/gameStorage/userRooms/" + userRoom.roomKey);
         gameDatabase.once("value", function (snap) {
             var here = snap.val();
-            $(".roomTitle").text(here.roomName);
+            $("title").text(here.roomName);
             $("#hint1").text(here.hint1);
             $("#hint2").text(here.hint2);
             $("#hint3").text(here.hint3);
@@ -545,16 +586,27 @@ var userRoom = {
     }
 }
 
-$(".signUpSubBtn").on("click", authentication.signUp);
-$(".loginSubBtn").on("click", authentication.login);
+// $(".signUpSubBtn").on("click", authentication.signUp);
+// $(".loginSubBtn").on("click", authentication.login);
 
-$(".outputArea").on("click", ".box", userRoom.openRoom);
+$("#login-form").submit(function(e) {
+    e.preventDefault();
+    if ($("#signUp").hasClass("signingUp")) {
+        // Create account submission
+        authentication.signUp(e);
+    } else {
+        // Login submission
+        authentication.login(e);
+    }
+});
+
+$("#room-screen").on("click", ".box", userRoom.openRoom);
 
 $(".subBtn").on("click", game.getURL);
 
 
 $(".createRoom").on("click", function () {
-    $(".roomArea").slideUp();
+    $("#room-container").slideUp();
     $(".createRoomArea").slideDown();
 })
 
@@ -635,4 +687,3 @@ function setTestGame() {
 
 
 }
-

@@ -10,8 +10,18 @@ body {
     background-repeat: no-repeat;
 }
 
+::-webkit-scrollbar {
+    width: 0;
+    }
+
+.hoz-center {
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+
 #title {
-    margin-top: 20%;
+    margin-top: 2%;
     background-color: white;
     border-radius: 15px;
     color: white;
@@ -29,15 +39,15 @@ body {
     display: none;
 }
 
+.container {
+    border-radius: 15px;
+}
+
 #main-content {
     display: none;
     position: absolute;
     padding: 15px 30px 20px 30px;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
     background-color: white;
-    border-radius: 15px;
 }
 
 label {
@@ -61,28 +71,183 @@ label {
     min-width: 90px;
 }
 
+#verifyPassword {
+    display: none;
+}
+
 #verifyPassword::placeholder {
     color: rgb(168, 168, 168);
 }
 
+.createRoomArea {
+    display: none;
+}
+
+/* Gameplay design */
+
+#gameRoom {
+    display: none;
+}
+
+.carousel img {
+    border: 10px solid white;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    padding: 10px 25px;
+    font-size: 24px;
+    color: white;
+    background-color: #ffc14f;
+    border: 1px solid white;
+}
+
+.subBtn {
+    height: 58px;
+    margin-left: 1px;
+    font-size: 24px;
+    color: white;
+    border: 1px solid white;
+    background-color: #ffc14f;
+}
+
+/* Result screen design */
+
+#room-container {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    top: 40%;
+    margin: 0;
+    background-color: rgba(255, 255,255, 0.5);
+}
+
+#room-container .row {
+    width: 100%;
+}
+
+#room-screen {
+    position: absolute;
+    height: calc(100% - 12vh);
+    bottom: 0;
+    left: 0%;
+    padding: 0;
+    box-sizing: content-box;
+    text-align: center;
+    overflow: auto;
+}
+
+.room {
+    display: inline-grid;
+    height: 20vh;
+    width: 25vh;
+    margin: 0 3vh 10px 3vh;
+    padding: 10px;
+    border-radius: 1.77vh;
+    box-shadow: 0px 0px 10px 1px grey;
+    overflow: hidden;
+}
+
+.room p {
+    font-size: 2.75vh;
+    color: whitesmoke;
+    text-overflow: ellipsis;
+}
+
+#room-btns {
+    position: absolute;
+    margin-top: 10px;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+#room-btns button {
+    width: 40vh;
+    padding: 1.18vh;
+    font-size: 2.95vh;
+    color: white;
+    background-color: #ffc14f;
+    box-shadow: 0px 0px 10px 1px rgb(165, 163, 163);
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.carousel-item {
+    padding: 0 10%;
+}
+
+.carousel-control-next {
+    right: -5%;
+}
+
+.carousel-control-prev {
+    left: -5%;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    width: 40px;
+    height: 40px;
+}
+
+#results-screen {
+    display: none;
+}
+
+.result-box {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    background-color: rgba(255, 255,255, 0.5);
+    border-radius: 15px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    color: gold;
+    overflow: hidden;
+    clip: rect(0, 20px, 125px, 0);
+}
+
+.upper {
+    vertical-align: super;
+}
+
+.percentage {
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 767px) and (orientation: landscape) {
     #title{
-        display: none;
+        /* display: none; */
+    }
+    .carousel-item {
+        white-space: nowrap;
+    }
+
+    .carousel-item div {
+        display: inline-block !important;
     }
 }
 
 @media only screen and (min-width: 768px) {
     /* For tablets: */
-    #title {
-        margin-top: 15%;
+    .carousel-item {
+        white-space: nowrap;
     }
 }
 
 @media only screen and (min-width: 768px) and (orientation: landscape) {
     /* For tablets in landscape: */
-    #title {
-        margin-top: 5%;
-    }
 }
   
   @media only screen and (min-width: 1025px) {

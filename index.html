@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Flu Fights</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel="stylesheet" href="assets/css/style.css">
@@ -18,9 +19,9 @@
             </div>
         </div>
 
-        <div id="main-content" class="container">
+        <div id="main-content" class="container hoz-center">
             <div class="row">
-                <div class="col-12">
+                <div id="login-screen" class="col-12">
                     <form id="login-form">
                         <div class="form-group signUp-group">
                             <label for="displayName">Display Name</label>
@@ -47,31 +48,200 @@
                 </div>
             </div>
         </div>
-         
 
-        <h2 id="test"></h2>
+        <div class="createRoomArea">
+            <label for="roomName">Room Name:</label><br>
+            <input type="text" name="roomName" id="roomName"><br>
+            <button class="btn selectRoom testGame1" data-game="testGame2">TestGame1</button>
+        </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
+        <div id="room-container" class="container hoz-center">
+            <div class="row">
+                <div id="room-screen" class="col-12"></div>
+                <div id="room-btns" class="col-12">
+                    <button class="createRoom">Create</button>
+                </div>
+            </div>
+        </div>
 
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+        <div id ="gameRoom" class="container gameRoom">
+            <div class="row">
+                <div class="col-12">
+                <div id="gameCarousel" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h3 class="hint" id="hint1"></h3>
+                            <label for="file-input1" class="custom-file-upload"><i class="fas fa-camera"></i></label>
+                            <button class="subBtn">Submit</button>
+                            <input type="file" accept="image/*" id="file-input1" data-pic="pic1URL" data-full="input_1_full"><br>
+                            <img src="assets/images/placeholder.png" alt="" id="img1" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <h3 class="hint" id="hint2"></h3>
+                            <label for="file-input2" class="custom-file-upload"><i class="fas fa-camera"></i></label>
+                            <input type="file" accept="image/*" id="file-input2" data-pic="pic2URL" data-full="input_2_full"><br>
+                            <img src="assets/images/placeholder.png" alt="" id="img2" class="w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <h3 class="hint" id="hint3"></h3>
+                            <label for="file-input3" class="custom-file-upload"><i class="fas fa-camera"></i></label>
+                            <input type="file" accept="image/*" id="file-input3" data-pic="pic3URL" data-full="input_3_full"><br>
+                            <img src="assets/images/placeholder.png" alt="" id="img3" class="w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <h3 class="hint" id="hint4"></h3>
+                            <label for="file-input4" class="custom-file-upload"><i class="fas fa-camera"></i></label>
+                            <input type="file" accept="image/*" id="file-input4" data-pic="pic4URL" data-full="input_4_full"><br>
+                            <img src="assets/images/placeholder.png" alt="" id="img4" class="w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <h3 class="hint" id="hint5"></h3>
+                            <label for="file-input5" class="custom-file-upload"><i class="fas fa-camera"></i></label>
+                            <input type="file" accept="image/*" id="file-input5" data-pic="pic5URL" data-full="input_5_full"><br>
+                            <img src="assets/images/placeholder.png" alt="" id="img5" class="w-100"><br>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#gameCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#gameCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                </div>
+            </div>                
+        </div>
+
+        <div id="results-screen" class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+            <div id="resultsCarousel" class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        <div id="item0" class="carousel-item active">
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgGuess w-100 mt-3">
+                            </div>
+                            <div class="result-box hoz-center">
+                                <div id="starBackdrop">
+                                    &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    <div class="stars">
+                                        &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    </div>
+                                    <p><strong class="percentage">100%</strong></p>
+                                </div>
+                            </div>
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgRight w-100 mt-3">
+                            </div>
+                        </div>
+                        <div id="item1" class="carousel-item">
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgGuess w-100 mt-3">
+                            </div>
+                            <div class="result-box hoz-center">
+                                <div id="starBackdrop">
+                                    &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    <div class="stars">
+                                        &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    </div>
+                                    <p><strong class="percentage">100%</strong></p>
+                                </div>
+                            </div>
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgRight w-100 mt-3">
+                            </div>
+                        </div>
+                        <div id="item2" class="carousel-item">
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgGuess w-100 mt-3">
+                            </div>
+                            <div class="result-box hoz-center">
+                                <div id="starBackdrop">
+                                    &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    <div class="stars">
+                                        &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    </div>
+                                    <p><strong class="percentage">100%</strong></p>
+                                </div>
+                            </div>
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgRight w-100 mt-3">
+                            </div>
+                        </div>
+                        <div id="item3" class="carousel-item">
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgGuess w-100 mt-3">
+                            </div>
+                            <div class="result-box hoz-center">
+                                <div id="starBackdrop">
+                                    &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    <div class="stars">
+                                        &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    </div>
+                                    <p><strong class="percentage">100%</strong></p>
+                                </div>
+                            </div>
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgRight w-100 mt-3">
+                            </div>
+                        </div>
+                        <div id="item4" class="carousel-item">
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgGuess w-100 mt-3">
+                            </div>
+                            <div class="result-box hoz-center">
+                                <div id="starBackdrop">
+                                    &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    <div class="stars">
+                                        &#9733;<span class="upper">&#9733;</span>&#9733;
+                                    </div>
+                                    <p><strong class="percentage">100%</strong></p>
+                                </div>
+                            </div>
+                            <div class="d-inline d-md-inline-block w-50">
+                                <img src="assets/images/placeholder.png" class="imgRight w-100 mt-3">
+                            </div>
+                        </div>            
+                    </div>
+                    <a class="carousel-control-prev" href="#resultsCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#resultsCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </div>
+                </div>    
+            </div>        
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
         <script src="https://cdnjs.deepai.org/deepai.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>
         <!-- Add additional services that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-storage.js"></script>
+        <script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
         <script src="assets/js/main.js"></script>
         <script>
 
         $(document).ready(function(){
         const signInMessage = `Already have an account? Sign in here.`;
         const signUpMessage = `Don't have an account? Create one here.`;
-
-        $("#main-content").slideDown();
+        const gradients = ["Purple Bliss","Mantle","Witching Hour","Nighthawk","Amethyst","Sylvia","Kashmir","Aubergine","Mello","Dark Ocean","Deep Sea Space","Kye Meh","SoundCloud","Tranquil"];
         
+        // $("#main-content").slideDown();
+        // $("#room-container").slideDown()
+        //
+        // $("#results-screen").slideDown()
 
         $("#signUp").on("click", function() {
             const btn = $(this);
@@ -95,7 +265,7 @@
                         };   
                     },
                 });
-                $("#verifyPassword, #displayName").attr("required",true);
+                // $("#verifyPassword, #displayName").attr("required",true);
                 $("#form-buttons").animate({"opacity":0.3}, 200, function() {
                     $("#form-buttons button").text("Create Account");
                     $("#form-buttons a").text(signInMessage);
@@ -105,60 +275,65 @@
             return false;
         });
 
-        $("#login-form").submit(function(e) {
-            e.preventDefault();
-            if ($("#signUp").hasClass("signingUp")) {
-                // Create account submission
-                if ($("#password").val().trim() === $("#verifyPassword").val().trim()) {
-                    justSigned = true;
+        // $("#login-form").submit(function(e) {
+        //     e.preventDefault();
+        //     if ($("#signUp").hasClass("signingUp")) {
+        //         // Create account submission
+        //         if ($("#password").val().trim() === $("#verifyPassword").val().trim()) {
+        //             justSigned = true;
 
-                displayName = $("#displayName").val().trim();
-                var email = $("#email").val().trim();
-                var password = $("#password").val().trim();
+        //         displayName = $("#displayName").val().trim();
+        //         var email = $("#email").val().trim();
+        //         var password = $("#password").val().trim();
 
-                var promise = auth.createUserWithEmailAndPassword(email, password)
+        //         var promise = auth.createUserWithEmailAndPassword(email, password)
 
-                promise.catch(function (error) {
-                    console.log(error.code + ": " + error.message);
-                });
-                } else {
-                    alert("Passwords do not match");
+        //         promise.catch(function (error) {
+        //             console.log(error.code + ": " + error.message);
+        //         });
+        //         } else {
+        //             alert("Passwords do not match");
+        //         }
+        //     } else {
+        //         // Login submission
+        //         var email = $("#email").val().trim();
+        //         var password = $("#password").val().trim();
+
+        //         var promise = auth.signInWithEmailAndPassword(email, password);
+
+        //         promise.catch(function (error) {
+        //             console.log(error.code + ": " + error.message);
+        //         })
+        //     }
+        // });
+
+        $("#gameCarousel").on('slide.bs.carousel', function(e) {
+            $(".subBtn").insertAfter($(e.relatedTarget).find("label"));
+        });
+
+        window.getColor = function(value){
+            //value from 0 to 1
+            var hue=(value*120).toString(10);
+            return ["hsl(",hue,",50%,50%)"].join("");
+        }
+
+        $('#resultsCarousel').on('slide.bs.carousel', function (e) {
+            var num = 0;
+            var target = $(e.relatedTarget);
+            var stars = target.find(".stars");
+            var percentage = target.find(".percentage");
+            var starAnim = setInterval(function() {
+                var rect = 20+(num*0.85) + "px";
+                stars.css("clip","rect(0, " + rect + ", 125px, 0)");
+                percentage.text(Math.floor(num)+"%");
+                percentage.css("color",getColor(num/100));
+                if (num >= target.attr("data-score")) {
+                    clearInterval(starAnim);
                 }
-            } else {
-                // Login submission
-                var email = $("#email").val().trim();
-                var password = $("#password").val().trim();
-
-                var promise = auth.signInWithEmailAndPassword(email, password);
-
-                promise.catch(function (error) {
-                    console.log(error.code + ": " + error.message);
-                })
-            }
+                num += 0.25;
+            },5);
         });
-
-        var x = document.getElementById("test");
-        function getLocation() {
-            if (navigator.geolocation) {
-                return navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude +
-                "<br>Longitude: " + position.coords.longitude;
-        }
-
-        var testBtn = document.getElementById("test-btn");
-
-
-        testBtn.onmouseup = function(){
-            getLocation();
-            showPosition();
-        };    
-        });
+});
         </script>    
     </body>
 </html>
